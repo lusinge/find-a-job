@@ -37,7 +37,7 @@ jobs:
           echo "name=$ARTIFACT_NAME" >> $GITHUB_ENV
 
       - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.name }}
           path: cv.pdf
