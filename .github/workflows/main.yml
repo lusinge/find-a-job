@@ -25,6 +25,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Create fonts directory
+        run: mkdir -p fonts
+
+      - name: Download AdwaitaSans-Regular.ttf
+        run: |
+          curl -L -o fonts/AdwaitaSans-Regular.ttf https://gitlab.gnome.org/GNOME/adwaita-fonts/-/raw/main/sans/AdwaitaSans-Regular.ttf
+
       - name: Compile with Typst
         run: typst c cv.typ
 
