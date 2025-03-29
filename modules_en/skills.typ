@@ -1,22 +1,36 @@
 // Imports
-#import "@preview/brilliant-cv:2.0.5": cvSection, cvSkill, hBar
+#import "@preview/brilliant-cv:2.0.5": cvSection, cvSkill, hBar, cvHonor
+#import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, vlinex
+#import "@preview/tiaoma:0.2.0": *
+#import "@preview/fontawesome:0.2.1": *
 #let metadata = toml("../metadata.toml")
 #let cvSection = cvSection.with(metadata: metadata)
+#let cvHonor = cvHonor.with(metadata: metadata)
+#let cvSkill= cvSkill
 
 
-#cvSection("Skills")
+#cvSection("Technical Skills")
 
 #cvSkill(
   type: [Languages],
-  info: [English #hBar() French #hBar() Chinese],
+  info: [
+    English #text(weight: "light")[(C1)], French #text(weight: "light")[(Native)]],
 )
 
 #cvSkill(
-  type: [Tech Stack],
-  info: [Tableau #hBar() Python (Pandas/Numpy) #hBar() PostgreSQL],
+  type: [Programming],
+  info: [C/C++, embedded C, Python, OoP, MATLAB, TensorFlow, bash],
 )
 
 #cvSkill(
-  type: [Personal Interests],
-  info: [Swimming #hBar() Cooking #hBar() Reading],
+  type: [Software],
+  info: [Linux, git, CI/CD, gem5, VSCode, Podman, Docker, S-Edit, L-Edit, MPLAB, STM32CubeIDE, TrueStudio, Proteus, LabVIEW, Keil, ModelSim],
 )
+
+#cvSkill(
+  type: [Hardware],
+  info: [SystemVerilog, gem5, PIC18, STM32, I2C, ARM-Cortex, Wi-Fi, Bluetooth, LoRa, 4G/5G, 8051, RISC-V, oscilloscope],
+)
+
+
+

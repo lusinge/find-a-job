@@ -1,20 +1,34 @@
+
 // Imports
 #import "@preview/brilliant-cv:2.0.5": cvSection, cvEntry
 #let metadata = toml("../metadata.toml")
 #let cvSection = cvSection.with(metadata: metadata)
 #let cvEntry = cvEntry.with(metadata: metadata)
+#block(breakable: false)[
+  #cvSection("Projects")
 
-
-#cvSection("Projects & Associations")
+  #cvEntry(
+    title: [Development of a motorized robot with IR and ultrasonic sensors using a STM32 microcontroller],
+    society: [Auto-parking fleet of on-wheel robots],
+    date: [Mar 2024 – Apr 2024],
+    location: [École des Mines de Saint-Étienne],
+    description: list(
+      [Implemented an auto-park function for a fleet of robots, via robot-to-robot Zigbee communication],
+      [Developed firmware for a STM32 microcontroller within 3 weeks, including extensive research and study of a datasheet, allowing a fleet of 10 robots to be automated],
+      [Gained knowledge in embedded C programming, and use of STM32CubeIDE],
+    ),
+    tags: ([Embedded C], [Bluetooth], [Zigbee], [STM32], [STM32CubeIDE]),
+  )
+]
 
 #cvEntry(
-  title: [Volunteer Data Analyst],
-  society: [ABC Nonprofit Organization],
-  date: [2019 - Present],
-  location: [New York, NY],
+  title: [Modeling of an ASCON-128 encryption system],
+  society: [Design of a digital system in SystemVerilog],
+  date: [Oct 2023 - Nov 2023],
+  location: [École des Mines de Saint-Étienne],
   description: list(
-    [Analyze donor and fundraising data to identify trends and opportunities for growth],
-    [Create data visualizations and dashboards to communicate insights to the board of directors],
-    [Collaborate with other volunteers to develop and implement data-driven strategies],
+    [Utilised SystemVerilog to create and validate module with test benches, integrating a finite-state machine for encryption within 2 months],
+    [Tested and verified signal processing with ModelSim software for machine containing 20+ states],
   ),
+  tags: ([SystemVerilog], [Digital Design], [HDL], [Encryption], [ModelSim]),
 )

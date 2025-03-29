@@ -9,16 +9,22 @@
   }
 }
 
+#set page(background: rotate(-45deg,
+  text(32pt, fill: rgb("#ffcbc481"))[
+    *REDACTED FOR PRIVACY PURPOSES*\
+    CONTACT ME IF YOU NEED THE WOLE THING
+  ]
+))
 
-#show: cv.with(
-  metadata,
-  profilePhoto: image("./src/avatar.png"),
-)
+#show: cv.with(metadata)
+
 #importModules((
+  "careerObjective",
   "education",
+  "skills",
   "professional",
   "projects",
-  // "certificates",
-  "publications",
-  "skills",
+  "associations",
+  "certificates",
+  "referees",
 ))
