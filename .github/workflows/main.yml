@@ -28,10 +28,13 @@ jobs:
         id: artifact_name
         run: |
           if [[ "${{ github.ref_name }}" == languages/* ]]; then
-            echo "name=cv_${{ github.ref_name }#languages/}.pdf" >> $GITHUB_ENV
+            # Remove 'languages/' prefix
+            BRANCH_NAME="${{ github.ref_name }}"
+            ARTIFACT_NAME="cv_${BRANCH_NAME#languages/}.pdf"
           else
-            echo "name=cv_${{ github.ref_name }}.pdf" >> $GITHUB_ENV
+            ARTIFACT_NAME="cv_${{ github.ref_name }}.pdf"
           fi
+          echo "name=$ARTIFACT_NAME" >> $GITHUB_ENV
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v3
