@@ -1,7 +1,11 @@
-name: Build and Release PDF
+name: Build and Release PDFs
 
 on:
   push:
+    branches:
+      - main
+      - 'languages/*'
+  pull_request:
     branches:
       - main
       - 'languages/*'
@@ -12,51 +16,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Typst
         uses: docker://ghcr.io/typst/typst:latest
+        with:
+          args: c cv.typ
 
-      - name: Build PDF
-        run: c cv.typ
-
-      - name: Rename PDF
-        id: rename
+      - name: Determine artifact name
+        id: artifact_name
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            mv cv.pdf cv_main.pdf
-            echo "artifact_name=cv_main.pdf" >> $GITHUB_ENV
-            echo "release_name=cv_main.pdf" >> $GITHUB_ENV
+          if [[ "${{ github.ref_name }}" == languages/* ]]; then
+            echo "name=cv_${{ github.ref_name }#languages/}.pdf" >> $GITHUB_ENV
           else
-            branch_name=$(echo "${{ github.ref }}" | sed 's|refs/heads/languages/||')
-            mv cv.pdf cv_${branch_name}.pdf
-            echo "artifact_name=cv_${branch_name}.pdf" >> $GITHUB_ENV
-            echo "release_name=cv_${branch_name}.pdf" >> $GITHUB_ENV
+            echo "name=cv_${{ github.ref_name }}.pdf" >> $GITHUB_ENV
           fi
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.artifact_name }}
-          path: ${{ env.artifact_name }}
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.release_name }}
-          release_name: ${{ env.release_name }}
-          draft: false
-          prerelease: false
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.artifact_name }}
-          asset_name: ${{ env.artifact_name }}
-          asset_content_type: application/pdf
+          name: ${{ env.name }}
+          path: cv.pdf
