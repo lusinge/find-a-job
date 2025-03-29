@@ -41,10 +41,13 @@ jobs:
         with:
           name: cv-pdf
 
+      - name: Create directory for artifact
+        run: mkdir -p artifact-dir && mv cv.pdf artifact-dir/
+
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: cv.pdf
+          path: artifact-dir/
 
       - name: Deploy to GitHub Pages
         id: deployment
