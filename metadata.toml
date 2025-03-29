@@ -12,7 +12,7 @@ language = "en"
     # Skips are for controlling the spacing between sections and entries
     before_section_skip = "0pt"
     before_entry_skip = "0pt"
-    before_entry_description_skip = "-5pt"
+    before_entry_description_skip = "0pt"
 
     # Optional: sets paper size and margins. Possible values: a4 (default), us-letter
     paper_size = "a4"
@@ -23,6 +23,7 @@ language = "en"
     [layout.fonts]
         regular_fonts = ["Inter"]
         header_font = "Inter"
+        font_size = "10pt"
 
     [layout.header]
         # Optional values: left, center, right
@@ -63,7 +64,7 @@ language = "en"
     # The custom value is for any additional information you want to add, name it as custom-1, custom-2, etc.
     [personal.info]
         github = "lusinge"
-        phone = "█████████"
+        phone = "██████"
         email = "lucien.gheerbrant@proton.me"
         linkedin = "lucien-gheerbrant"
         # gitlab = "yunanwg"
@@ -71,7 +72,7 @@ language = "en"
         # orcid = "0000-0000-0000-0000"
         # researchgate = "John-Doe"
         # extraInfo = "I am a cool kid"
-        [personal.info.custom-1]
+        # [personal.info.custom-1]
             # image = "" # Example: image("./path/to/image.png")
             # awesomeIcon = "graduation-cap" # Example: "graduation-cap" see https://typst.app/universe/package/fontawesome/
             # text = "PhD"

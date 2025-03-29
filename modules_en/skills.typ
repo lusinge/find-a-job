@@ -1,13 +1,12 @@
 // Imports
-#import "@preview/brilliant-cv:2.0.5": cvSection, cvSkill, hBar, cvHonor
+#import "/brilliant-CV/lib.typ": cvSection, cvSkill, hBar, cvHonor
 #import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, vlinex
 #import "@preview/tiaoma:0.2.0": *
 #import "@preview/fontawesome:0.2.1": *
 #let metadata = toml("../metadata.toml")
 #let cvSection = cvSection.with(metadata: metadata)
 #let cvHonor = cvHonor.with(metadata: metadata)
-#let cvSkill= cvSkill
-
+#let cvSkill= cvSkill.with(metadata: metadata)
 
 #cvSection("Technical Skills")
 

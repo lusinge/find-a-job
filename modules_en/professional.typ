@@ -1,5 +1,4 @@
-// Imports
-#import "@preview/brilliant-cv:2.0.5": cvSection, cvEntry
+#import "/brilliant-CV/lib.typ": cvSection, cvEntry
 #let metadata = toml("../metadata.toml")
 #let cvSection = cvSection.with(metadata: metadata)
 #let cvEntry = cvEntry.with(metadata: metadata)
@@ -7,7 +6,7 @@
 #cvSection("Professional Experience")
 #cvEntry(
   title: [Digital Systems Simulation Engineering Intern (full-time)],
-  society: [PROPHESEE],
+  society: [█████████],
   date: [Mar 2024 - Aug 2024],
   location: [Paris, France],
   description: list(
@@ -28,9 +27,9 @@
 #block(breakable: false)[
   #cvEntry(
     title: [Validation Engineering Intern],
-    society: [Microchip Technology Inc],
+    society: [█████████],
     date: [Jan 2023],
-    location: [Rousset, France],
+    location: [██████, France],
     description: list(
       [Developed Python and Bash scripts to automate tasks within validation department, increasing productivity],
       [Established communication between a work computer and an embedded Linux-based micro-controller using SSH and I2C protocols for seamless data exchange during validation procedures with a latency of 5ms],

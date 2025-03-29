@@ -1,5 +1,5 @@
 // Imports
-#import "@preview/brilliant-cv:2.0.5": cv
+#import "/brilliant-CV/lib.typ": cv
 #let metadata = toml("./metadata.toml")
 #let importModules(modules, lang: metadata.language) = {
   for module in modules {
@@ -10,9 +10,9 @@
 }
 
 #set page(background: rotate(-45deg,
-  text(32pt, fill: rgb("#ffcbc481"))[
+  text(32pt, fill: rgb("#ff000020"))[
     *REDACTED FOR PRIVACY PURPOSES*\
-    CONTACT ME IF YOU NEED THE WOLE THING
+    CONTACT ME IF YOU WISH TO HAVE EVERYTHING
   ]
 ))
 

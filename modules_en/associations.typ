@@ -1,10 +1,7 @@
-
-// Imports
-#import "@preview/brilliant-cv:2.0.5": cvSection, cvEntry
+#import "/brilliant-CV/lib.typ": cvSection, cvEntry
 #let metadata = toml("../metadata.toml")
 #let cvSection = cvSection.with(metadata: metadata)
 #let cvEntry = cvEntry.with(metadata: metadata)
-
 #cvSection("Extracurricular Involvements")
 
 #cvEntry(
@@ -29,7 +26,7 @@
   title: [Volunteer],
   society: [█████████],
   date: [Mar 2023 - Jun 2023],
-  location: [███████, France],
+  location: [█████████, France],
   description: list(
     [Volunteered in association providing assistance to 30+ people in precarious situations],
     [Organised and facilitated weekly computer classes for vulnerable persons],
