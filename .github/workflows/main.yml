@@ -33,13 +33,13 @@ jobs:
           curl -L -o fonts/AdwaitaSans-Regular.ttf https://gitlab.gnome.org/GNOME/adwaita-fonts/-/raw/main/sans/AdwaitaSans-Regular.ttf
 
       - name: Compile with Typst
-        run: typst c cv.typ
+        run: typst c cv.typ -o cv_${{ github.ref_name }}.pdf
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@v4
         with:
           name: cv-pdf
-          path: cv.pdf
+          path: cv_${{ github.ref_name }}.pdf
 
   deploy:
     environment:
@@ -54,7 +54,7 @@ jobs:
           name: cv-pdf
 
       - name: Create directory for artifact
-        run: mkdir -p artifact-dir && mv cv.pdf artifact-dir/
+        run: mkdir -p artifact-dir && mv cv_${{ github.ref_name }}.pdf artifact-dir/
 
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
