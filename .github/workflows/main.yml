@@ -1,47 +1,49 @@
-name: Render with Typst and Deploy to GitHub Pages
+name: Render with Typst
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+      - 'languages/*'  # Adjust this pattern to match your branch naming convention
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/typst/typst:latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create fonts directory
-        run: mkdir -p fonts
-
-      - name: Download AdwaitaSans-Regular.ttf
-        run: |
-          curl -L -o fonts/AdwaitaSans-Regular.ttf https://gitlab.gnome.org/GNOME/adwaita-fonts/-/raw/main/sans/AdwaitaSans-Regular.ttf
-
       - name: Compile with Typst
-        uses: docker://ghcr.io/typst/typst:latest
+        run: typst c cv.typ # Will produce cv.pdf
+
+      - name: Upload PDF as Artifact
+        uses: actions/upload-artifact@v3
         with:
-          args: typst c cv.typ cv_${{ github.ref_name }}.pdf
+          name: cv-${{ github.ref_name }}
+          path: cv.pdf
 
-      - name: Create directory for deployment
-        run: mkdir -p _site && mv cv_${{ github.ref_name }}.pdf _site/
-
-      - name: Upload static files for GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: _site/
+          tag_name: ${{ github.ref_name }}
+          release_name: CV for ${{ github.ref_name }}
+          draft: false
+          prerelease: false
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./cv.pdf
+          asset_name: cv-${{ github.ref_name }}.pdf
+          asset_content_type: application/pdf
