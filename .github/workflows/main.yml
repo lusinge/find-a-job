@@ -34,7 +34,7 @@ jobs:
       - name: Set up Typst
         uses: docker://ghcr.io/typst/typst:latest
         with:
-          args: c cv.typ
+          args: c --font-paths='fonts' cv.typ
         env:
           TYPSY_FONT_PATH: fonts
 
