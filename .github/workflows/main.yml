@@ -15,11 +15,8 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    container:
-      image: ghcr.io/typst/typst:latest
 
     steps:
       - name: Checkout repository
@@ -33,33 +30,17 @@ jobs:
           curl -L -o fonts/AdwaitaSans-Regular.ttf https://gitlab.gnome.org/GNOME/adwaita-fonts/-/raw/main/sans/AdwaitaSans-Regular.ttf
 
       - name: Compile with Typst
-        run: typst c cv.typ -o cv_${{ github.ref_name }}.pdf
-
-      - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v4
+        uses: docker://ghcr.io/typst/typst:latest
         with:
-          name: cv-pdf
-          path: cv_${{ github.ref_name }}.pdf
+          args: typst c cv.typ cv_${{ github.ref_name }}.pdf
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Download PDF artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: cv-pdf
+      - name: Create directory for deployment
+        run: mkdir -p _site && mv cv_${{ github.ref_name }}.pdf _site/
 
-      - name: Create directory for artifact
-        run: mkdir -p artifact-dir && mv cv_${{ github.ref_name }}.pdf artifact-dir/
-
-      - name: Upload static files as artifact
+      - name: Upload static files for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: artifact-dir/
+          path: _site/
 
       - name: Deploy to GitHub Pages
         id: deployment
