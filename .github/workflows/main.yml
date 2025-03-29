@@ -9,6 +9,8 @@ on:
     branches:
       - main
       - 'languages/*'
+  workflow_dispatch:
+
 
 jobs:
   build:
